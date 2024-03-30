@@ -1,13 +1,16 @@
 {
-    "manufacturer": "Cyboard - MSBarbieri",
+    "manufacturer": "MSBarbieri",
     "maintainer": "msbarbieri",
     "url": "https://msbarbieri.dev",
     "keyboard_name": "Dactyl Manuform",
     "usb": {
-        "vid": "0x4359",
-        "pid": "0x0000",
-        "device_version": "0.2.0"
+        "vid": "0x4D42",
+        "pid": "0x0001",
+        "device_version": "0.1.0"
     },
+    "menus": [
+        "qmk_rgblight"
+    ],
     "processor": "RP2040",
     "bootloader": "rp2040",
     "diode_direction": "ROW2COL",
