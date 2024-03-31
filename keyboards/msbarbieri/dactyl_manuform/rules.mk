@@ -8,3 +8,4 @@ AUDIO_ENABLE = no           # Audio output
 SERIAL_DRIVER = vendor
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = pmw3360
+LEADER_ENABLE = yes
