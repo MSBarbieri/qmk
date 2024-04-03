@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 
-
 #define LEADER_TIMEOUT 10
 
 #define QUERTY_LAYER 2
@@ -32,8 +31,18 @@
 #define RAISE MO(INSERT_LAYER)
 #define LOWER MO(NUMBER_LAYER)
 
+#include "features/custom_shift_keys.h"
 
-const uint16_t PROGMEM reset_combo[] = { MT(MOD_LGUI, KC_SPC), KC_BSPC, COMBO_END};
+const custom_shift_key_t custom_shift_keys[] = {
+  {KC_COLN, KC_SLSH}, // Shift : is ;
+  {KC_SCLN, KC_QUES}, // Shift : is ;
+};
+
+uint8_t NUM_CUSTOM_SHIFT_KEYS =
+    sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
+
+
+const uint16_t PROGMEM reset_combo[] = { MT(MOD_LGUI, KC_SPC), LT(SYMBOLS_LAYER, KC_BSPC), COMBO_END};
 
 enum combo_events {
   RESET_LAYER,
@@ -76,26 +85,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
     [CANARY_LAYER] = LAYOUT_manuform_let(
-        KC_TAB,  KC_W,    KC_L,    KC_Y,    KC_P,    KC_B,                                KC_Z,    KC_F,     KC_O,    KC_U, KC_QUOT, KC_SLSH,//KC_BSLS,
+        KC_TAB,  KC_W,    KC_L,    KC_Y,    KC_P,    KC_B,                                KC_Z,    KC_F,     KC_O,    KC_U, KC_QUOT, KC_SCLN,//KC_BSLS,
         KC_ESC,  MT(MOD_LCTL, KC_C),  MT(MOD_LSFT,  KC_R),  MT(MOD_LALT,  KC_S),    KC_T,    KC_G,                                KC_D,    KC_H,     MT(MOD_LALT, KC_T),   MT(MOD_LSFT, KC_N), MT(MOD_LCTL, KC_S), KC_MINUS,
         KC_LSFT, KC_Q,    KC_J,    KC_V,    KC_D,    KC_K,                                KC_X,    KC_H,  KC_SLSH, KC_COMM,  KC_DOT, KC_RSFT,
-        KC_NO,   KC_NO, KC_NO,   KC_NO, MT(MOD_LGUI, KC_SPC), LT(SYMBOLS_LAYER, KC_SCLN),  KC_NO,           KC_NO,  LT(NUMROW_LAYER,KC_ENT),  KC_BSPC, KC_NO,  KC_NO, KC_NO, KC_NO,
+        KC_NO,   KC_NO, KC_NO,   KC_NO, MT(MOD_LGUI, KC_SPC), QK_LEAD,  KC_NO,           KC_NO,  LT(NUMROW_LAYER,KC_ENT),  LT(SYMBOLS_LAYER, KC_BSPC), KC_NO,  KC_NO, KC_NO, KC_NO,
                         DF(CANARY_LAYER), DF(DVORAK_LAYER),    DF(QUERTY_LAYER),           KC_GRAVE,  KC_CAPS,  KC_APP
     ),
 
     [DVORAK_LAYER] = LAYOUT_manuform_let(
-        KC_TAB,  LSFT(KC_SCLN),    KC_COMM,    KC_DOT,    KC_P,    KC_Y,                                KC_F,    KC_G,     KC_C,    KC_R, KC_L, KC_SLSH,//KC_BSLS,
+        KC_TAB,  KC_COLN,    KC_COMM,    KC_DOT,    KC_P,    KC_Y,                                KC_F,    KC_G,     KC_C,    KC_R, KC_L, KC_SCLN,//KC_BSLS,
         KC_ESC,  MT(MOD_LCTL, KC_A),  MT(MOD_LSFT,  KC_O),  MT(MOD_LALT,  KC_E),    KC_U,    KC_I,                                KC_D,    KC_H,     MT(MOD_LALT, KC_T),   MT(MOD_LSFT, KC_N), MT(MOD_LCTL, KC_S), KC_MINUS,
         KC_LSFT, KC_QUOT,    KC_Q,    KC_J,    KC_K,    KC_X,                                KC_B,    KC_M,  KC_W, KC_V,  KC_Z, KC_RSFT,
-        KC_NO,   KC_NO, KC_NO,   KC_NO,MT(MOD_LGUI, KC_SPC), LT(SYMBOLS_LAYER, KC_SCLN),  KC_NO,           KC_NO,  LT(NUMROW_LAYER,KC_ENT),  KC_BSPC, KC_NO,  KC_NO, KC_NO, KC_NO,
+        KC_NO,   KC_NO, KC_NO,   KC_NO,MT(MOD_LGUI, KC_SPC), QK_LEAD,  KC_NO,           KC_NO,  LT(NUMROW_LAYER,KC_ENT),  LT(SYMBOLS_LAYER, KC_BSPC), KC_NO,  KC_NO, KC_NO, KC_NO,
                         DF(CANARY_LAYER), DF(DVORAK_LAYER),    DF(QUERTY_LAYER),           KC_GRAVE,  KC_CAPS,  KC_APP
     ),
 
     [QUERTY_LAYER] = LAYOUT_manuform_let(
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                KC_Y,    KC_U,     KC_I,    KC_O, KC_P, KC_LBRC,//KC_BSLS,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                KC_Y,    KC_U,     KC_I,    KC_O, KC_P, KC_SCLN,//KC_BSLS,
         KC_ESC,  MT(MOD_LCTL, KC_A),  MT(MOD_LSFT,  KC_S),  MT(MOD_LALT,  KC_D),    KC_F,    KC_G,                                KC_H,    KC_J,     MT(MOD_LALT, KC_K),   MT(MOD_LSFT, KC_L), MT(MOD_LCTL, KC_SCLN), KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                               KC_N,    KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-        KC_NO,   KC_NO, KC_NO,   KC_NO,MT(MOD_LGUI, KC_SPC), LT(SYMBOLS_LAYER, KC_SCLN),  KC_NO,           KC_NO,  LT(NUMROW_LAYER,KC_ENT),  KC_BSPC, KC_NO,  KC_NO, KC_NO, KC_NO,
+        KC_NO,   KC_NO, KC_NO,   KC_NO,MT(MOD_LGUI, KC_SPC), QK_LEAD,  KC_NO,           KC_NO,  LT(NUMROW_LAYER,KC_ENT),  LT(SYMBOLS_LAYER, KC_BSPC), KC_NO,  KC_NO, KC_NO, KC_NO,
                         DF(CANARY_LAYER), DF(DVORAK_LAYER),    DF(QUERTY_LAYER),           KC_GRAVE,  KC_CAPS,  KC_APP
     ),
 
@@ -140,18 +149,21 @@ void persistent_default_layer_set(uint16_t default_layer) {
     default_layer_set(default_layer);
 }
 
+void leader_start_user(void) {
+        rgb_matrix_sethsv(HSV_WHITE);
+}
+
 void leader_end_user(void) {
 
-    if (leader_sequence_one_key(KC_D) ||leader_sequence_one_key(LSFT(KC_9))) {
-        layer_invert(SYMBOLS_LAYER);
-    } else if (leader_sequence_one_key(KC_S)) {
+    if (leader_sequence_one_key(KC_S)) {
         layer_invert(NUMBER_LAYER);
-    } else if (leader_sequence_one_key(KC_K) ||leader_sequence_one_key(KC_DOWN)) {
+    } else if (leader_sequence_one_key(KC_T) ||leader_sequence_one_key(KC_DOWN)) {
         layer_invert(NAV_LAYER);
-    } else if (leader_sequence_one_key(KC_ENT)) {
+    } else if (leader_sequence_two_keys(KC_M, KC_R)) {
+        SEND_STRING("hello world from hotkey!");
+    } else  {
         layer_clear();
     }
-
     // } else if (leader_sequence_two_keys(KC_D, KC_D)) {
     //     SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
     // } else if (leader_sequence_three_keys(KC_D, KC_D, KC_S)) {
@@ -192,6 +204,13 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         set_single_persistent_default_layer(BASE_LAYER);
       break;
   }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+  if (!process_custom_shift_keys(keycode, record)) { return false; }
+  // Your macros ...
+
+  return true;
 }
 
 void keyboard_post_init_user(void) {
