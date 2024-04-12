@@ -11,6 +11,7 @@ SERIAL_DRIVER = vendor
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = pmw3360
 LEADER_ENABLE = yes
+CAPS_WORD_ENABLE = yes
 
-SRC += features/custom_shift_keys.c
+# SRC += features/custom_shift_keys.c
 
